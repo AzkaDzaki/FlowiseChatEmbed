@@ -1,11 +1,4 @@
-import {
-  validateChartConfig,
-  renderChart,
-  generateChartId,
-  cleanupCharts,
-  destroyAllCharts,
-  type ChartConfig,
-} from '../components/charts';
+import { validateChartConfig, renderChart, generateChartId, cleanupCharts, destroyAllCharts, type ChartConfig } from '../components/charts';
 
 /**
  * Process HTML content and render Chart.js charts from code blocks

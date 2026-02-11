@@ -48,7 +48,7 @@ const defaultFontSize = 16;
 const defaultFeedbackColor = '#3B81F6';
 
 export const BotBubble = (props: Props) => {
-  console.log('tes')
+  console.log('tes');
   let botDetailsEl: HTMLDetailsElement | undefined;
 
   Marked.setOptions({ isNoP: true, sanitize: props.renderHTML !== undefined ? !props.renderHTML : true });
@@ -335,8 +335,8 @@ export const BotBubble = (props: Props) => {
                 const isFileStorage = typeof item.data === 'string' && item.data.startsWith('FILE-STORAGE::');
                 return isFileStorage
                   ? `${props.apiHost}/api/v1/get-upload-file?chatflowId=${props.chatflowid}&chatId=${props.chatId}&fileName=${(
-                    item.data as string
-                  ).replace('FILE-STORAGE::', '')}`
+                      item.data as string
+                    ).replace('FILE-STORAGE::', '')}`
                   : (item.data as string);
               })()}
             />

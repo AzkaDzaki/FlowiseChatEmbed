@@ -3,7 +3,7 @@ import { Chart, ChartConfiguration } from 'chart.js';
  * Supported chart types (matches Chart.js types)
  */
 export declare const VALID_CHART_TYPES: readonly ["bar", "line", "pie", "doughnut", "radar", "polarArea", "scatter", "bubble"];
-export type ChartType = typeof VALID_CHART_TYPES[number];
+export type ChartType = (typeof VALID_CHART_TYPES)[number];
 /**
  * Chart configuration interface (Chart.js format)
  */

@@ -9,18 +9,9 @@ const chartInstances = new Map<string, Chart>();
 /**
  * Supported chart types (matches Chart.js types)
  */
-export const VALID_CHART_TYPES = [
-  'bar',
-  'line',
-  'pie',
-  'doughnut',
-  'radar',
-  'polarArea',
-  'scatter',
-  'bubble',
-] as const;
+export const VALID_CHART_TYPES = ['bar', 'line', 'pie', 'doughnut', 'radar', 'polarArea', 'scatter', 'bubble'] as const;
 
-export type ChartType = typeof VALID_CHART_TYPES[number];
+export type ChartType = (typeof VALID_CHART_TYPES)[number];
 
 /**
  * Chart configuration interface (Chart.js format)
