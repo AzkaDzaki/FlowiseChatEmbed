@@ -21,4 +21,5 @@ export declare const removeLocalStorageChatHistory: (chatflowid: string) => void
 export declare const getBubbleButtonSize: (size: 'small' | 'medium' | 'large' | number | undefined) => number;
 export declare const setCookie: (cname: string, cvalue: string, exdays: number) => void;
 export declare const getCookie: (cname: string) => string;
+export { processChartCodeBlocks, cleanupCharts, destroyAllCharts } from './chartRenderer';
 //# sourceMappingURL=index.d.ts.map

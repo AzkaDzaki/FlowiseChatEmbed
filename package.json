@@ -21,6 +21,7 @@
     "@microsoft/fetch-event-source": "^2.0.1",
     "@ts-stack/markdown": "^1.4.0",
     "axios": "^1.7.7",
+    "chart.js": "^4.5.1",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "device-detector-js": "^3.0.3",

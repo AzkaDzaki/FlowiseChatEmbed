@@ -16,10 +16,14 @@
 </head>
 
 <body>
-    <div id="root"></div>
+    <div id="root">
+        <flowise-fullchatbot></flowise-fullchatbot>
+
+    </div>
+
     <script type="module">
         import Chatbot from './web.js'
-        
+
         // Example initialization:
         // If your .env contains:
         // agent1=xyz789-uvw456,https://example.com
@@ -27,9 +31,9 @@
         // salesbot=ghi123-jkl456,https://example.com
         //
         // Then use the environment variable name as chatflowid:
-        Chatbot.init({
-            chatflowid: 'agent1',    // or 'support', 'salesbot', etc.
-            apiHost: window.location.origin
+        Chatbot.initFull({
+            chatflowid: '49837b50-a4d3-459f-9dac-72276aef7af4',    // or 'support', 'salesbot', etc.
+            apiHost: 'https://azkadzaki-adp.1ai.my.id'
         })
     </script>
 </body>

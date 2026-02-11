@@ -1,7 +1,8 @@
-import { For, onMount } from 'solid-js';
+import { For, onMount, onCleanup } from 'solid-js';
 import { Marked } from '@ts-stack/markdown';
 import { FileUpload } from '../Bot';
 import { cloneDeep } from 'lodash';
+import { processChartCodeBlocks, cleanupCharts } from '@/utils/chartRenderer';
 
 type Props = {
   apiHost?: string;
@@ -26,10 +27,19 @@ export const AgentReasoningBubble = (props: Props) => {
 
   onMount(() => {
     if (botMessageEl) {
-      botMessageEl.innerHTML = Marked.parse(`**✅ ${props.agentName}** \n\n${props.agentMessage}`);
+      const parsedHtml = Marked.parse(`**✅ ${props.agentName}** \n\n${props.agentMessage}`);
+      const processedHtml = processChartCodeBlocks(parsedHtml, botMessageEl);
+      botMessageEl.innerHTML = processedHtml;
       botMessageEl.querySelectorAll('a').forEach((link) => {
         link.target = '_blank';
       });
+    }
+  });
+
+  // Cleanup charts when component unmounts
+  onCleanup(() => {
+    if (botMessageEl) {
+      cleanupCharts(botMessageEl);
     }
   });
 

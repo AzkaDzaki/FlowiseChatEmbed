@@ -352,6 +352,19 @@ yarn dev
 
 **Note:** The development URL (http://localhost:5678) is automatically added to allowed domains in development mode. You don't need to add it manually.
 
+Syncing your fork with upstream
+If this repository was forked and you want to keep your fork up-to-date with the original (upstream) repository, add an upstream remote and pull changes from the upstream main branch.
+
+Add the upstream remote (replace <UPSTREAM_URL> with the original repo URL):
+Fetch upstream and update your local main branch:
+Option A — Merge (keeps explicit merge commits):
+Option B — Rebase (creates a linear history; recommended for a clean history):
+Notes:
+
+Use merge if you want to preserve upstream merge commits in your history.
+Use rebase if you prefer a linear history (you may need to resolve conflicts during the rebase).
+Always use --force-with-lease when pushing after a rebase to avoid overwriting remote changes accidentally.
+
 ## License
 
 Source code in this repository is made available under the [MIT License](https://github.com/FlowiseAI/Flowise/blob/master/LICENSE.md).

@@ -152,3 +152,6 @@ export const getCookie = (cname: string): string => {
   }
   return '';
 };
+
+// Export chart renderer utilities
+export { processChartCodeBlocks, cleanupCharts, destroyAllCharts } from './chartRenderer';

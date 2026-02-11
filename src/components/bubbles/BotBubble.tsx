@@ -1,4 +1,4 @@
-import { createEffect, Show, createSignal, onMount, For } from 'solid-js';
+import { createEffect, Show, createSignal, onMount, For, onCleanup } from 'solid-js';
 import { Avatar } from '../avatars/Avatar';
 import { Marked } from '@ts-stack/markdown';
 import { FeedbackRatingType, sendFeedbackQuery, sendFileDownloadQuery, updateFeedbackQuery } from '@/queries/sendMessageQuery';
@@ -11,6 +11,7 @@ import { TickIcon, XIcon } from '../icons';
 import { SourceBubble } from '../bubbles/SourceBubble';
 import { DateTimeToggleTheme } from '@/features/bubble/types';
 import { WorkflowTreeView } from '../treeview/WorkflowTreeView';
+import { processChartCodeBlocks, cleanupCharts } from '@/utils/chartRenderer';
 
 type Props = {
   message: MessageType;
@@ -47,6 +48,7 @@ const defaultFontSize = 16;
 const defaultFeedbackColor = '#3B81F6';
 
 export const BotBubble = (props: Props) => {
+  console.log('tes')
   let botDetailsEl: HTMLDetailsElement | undefined;
 
   Marked.setOptions({ isNoP: true, sanitize: props.renderHTML !== undefined ? !props.renderHTML : true });
@@ -63,7 +65,10 @@ export const BotBubble = (props: Props) => {
 
   const setBotMessageRef = (el: HTMLSpanElement) => {
     if (el) {
-      el.innerHTML = Marked.parse(props.message.message);
+      // Parse markdown and process chart code blocks
+      const parsedHtml = Marked.parse(props.message.message);
+      const processedHtml = processChartCodeBlocks(parsedHtml, el);
+      el.innerHTML = processedHtml;
 
       // Apply textColor to all links, headings, and other markdown elements except code
       const textColor = props.textColor ?? defaultTextColor;
@@ -275,6 +280,13 @@ export const BotBubble = (props: Props) => {
     }
   });
 
+  // Cleanup charts when component unmounts
+  onCleanup(() => {
+    if (botMessageElement()) {
+      cleanupCharts(botMessageElement()!);
+    }
+  });
+
   createEffect(() => {
     if (botDetailsEl && props.isLoading) {
       botDetailsEl.open = true;
@@ -323,8 +335,8 @@ export const BotBubble = (props: Props) => {
                 const isFileStorage = typeof item.data === 'string' && item.data.startsWith('FILE-STORAGE::');
                 return isFileStorage
                   ? `${props.apiHost}/api/v1/get-upload-file?chatflowId=${props.chatflowid}&chatId=${props.chatId}&fileName=${(
-                      item.data as string
-                    ).replace('FILE-STORAGE::', '')}`
+                    item.data as string
+                  ).replace('FILE-STORAGE::', '')}`
                   : (item.data as string);
               })()}
             />
